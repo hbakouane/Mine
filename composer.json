@@ -1,0 +1,17 @@
+{
+    "name": "maxlsi/mvc",
+    "description": "A small php mvc framework",
+    "type": "framework",
+    "authors": [
+        {
+            "name": "Haytam Bakouane",
+            "email": "hbakouane@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "./"
+        }
+    },
+    "require": {}
+}
