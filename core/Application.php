@@ -7,6 +7,7 @@ class Application
     public Request $request;
     public Router $router;
     public static $root;
+    public static Application $app;
 
     /**
      * Application constructor.
@@ -16,6 +17,7 @@ class Application
         $this->request = new Request();
         $this->router = new Router($this->request);
         self::$root = $root;
+        self::$app = $this;
     }
 
     public function run()
