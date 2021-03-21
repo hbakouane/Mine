@@ -25,5 +25,10 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
+        <?php
+            if (isset($name_error)) {
+                echo $name_error;
+            }
+        ?>
     </div>
 </div>

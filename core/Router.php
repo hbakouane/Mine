@@ -9,6 +9,8 @@ class Router
     protected array $routes = [];
     public Request $request;
     public Response $response;
+    public $layout = 'master';
+    public $errors; // errors to be rendered to the view
 
     /**
      * Router constructor.
@@ -54,8 +56,13 @@ class Router
         echo call_user_func($callback, $this->request);
     }
 
-    public function layoutContent($layout = 'master')
+    public function renderErrors(array $errors) {
+        return $this->errors = $errors;
+    }
+
+    public function layoutContent($layout)
     {
+        $this->layout = $layout;
         ob_start();
         include_once Application::$root . "/Views/layouts/$layout.php";
         return ob_get_clean();
@@ -66,6 +73,10 @@ class Router
         foreach ($params as $key => $value) {
             $$key = $value;
         }
+//        foreach ($this->errors as $keyy => $valuee) {
+//            $keyy .= '_error';
+//            echo $$keyy = $valuee;
+//        }
         ob_start();
         include_once Application::$root . "/Views/$view";
         return ob_get_clean();
@@ -83,9 +94,11 @@ class Router
 
     public function renderView($view, $params = [])
     {
-        // Get the layout content
-        $layout = $this->layoutContent();
-        echo str_replace('{{ content }}', $this->viewContent($this->makeView($view), $params), $layout);
+        echo str_replace(
+            '{{ content }}',
+            $this->viewContent($this->makeView($view), $params),
+            $this->layoutContent($this->layout)
+        );
     }
 
 }

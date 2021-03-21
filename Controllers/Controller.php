@@ -12,4 +12,9 @@ class Controller
     {
         Application::$app->router->renderView($view, $params);
     }
+
+    public function layout($layout)
+	{
+		Application::$app->router->layoutContent($layout);
+	}
 }

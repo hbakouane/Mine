@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Core\Request;
 use App\Core\Validation;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -27,11 +28,14 @@ class AuthController extends Controller
         $data = $request->getBody(['name', 'email', 'password', 'password_confirm']);
         $rules = [
             'name' => 'required',
-            'email' => 'email',
+            'email' => ['required', 'email'],
             'password' => ['required', 'min:8', 'max:50'],
             'password_confirm' => ['required', 'min:8', 'max:50', 'like_password']
         ];
         $validatedData = Validation::validate($data, $rules);
+        $user = new User();
+        $user->order($data)->save();
+        echo "Registering user . . .";
     }
 
 }
