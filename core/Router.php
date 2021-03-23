@@ -57,7 +57,9 @@ class Router
     }
 
     public function renderErrors(array $errors) {
-        return $this->errors = $errors;
+        foreach ($errors as $keyy => $error) {
+            setcookie($keyy . '_error', $error, time() + 1);
+        }
     }
 
     public function layoutContent($layout)
@@ -73,10 +75,7 @@ class Router
         foreach ($params as $key => $value) {
             $$key = $value;
         }
-//        foreach ($this->errors as $keyy => $valuee) {
-//            $keyy .= '_error';
-//            echo $$keyy = $valuee;
-//        }
+
         ob_start();
         include_once Application::$root . "/Views/$view";
         return ob_get_clean();

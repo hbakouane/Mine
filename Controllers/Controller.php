@@ -17,4 +17,14 @@ class Controller
 	{
 		Application::$app->router->layoutContent($layout);
 	}
+
+    public function keep($data, $value = '')
+    {
+        if (is_string($data)) {
+            return setcookie($data, $value, time() + 1);
+        }
+        foreach ($data as $key => $valuee) {
+            setcookie($key, $valuee, time() + 1);
+        }
+	}
 }

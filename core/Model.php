@@ -10,6 +10,11 @@ class Model
     public $table;
     public $data;
 
+
+    /**
+     * @param $data
+     * @return $this
+     */
     public function order($data)
     {
         $this->data = [];

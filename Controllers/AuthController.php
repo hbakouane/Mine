@@ -33,6 +33,10 @@ class AuthController extends Controller
             'password_confirm' => ['required', 'min:8', 'max:50', 'like_password']
         ];
         $validatedData = Validation::validate($data, $rules);
+        if ($validatedData === false) {
+            $this->keep($data);
+            getBack();
+        }
         $user = new User();
         $user->order($data)->save();
         echo "Registering user . . .";
